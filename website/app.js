@@ -23,7 +23,7 @@ document.getElementById('generate').addEventListener('click', performAction);
 // POST route that validates the response then updates the ui
 async function postData(url = '', data = {}) {
     // Default options are marked with *
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       
@@ -36,13 +36,13 @@ async function postData(url = '', data = {}) {
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     try {
-        if (!response.ok) {
+        if (!res.ok) {
             alert('something went wrong');
             return;
         }
        
         res.json().then(data => {
-            if (response.ok)
+            if (res.ok)
                 // updates the ui
                 updateUI();
             else
@@ -89,9 +89,10 @@ async function updateUI() {
     let res = await fetch(`${apiUrl}getAll`);
     try {
         res.json().then(data => {
-            dateEl.innerHTML = `Date Is: ${data.date}`;
+            dateEl.innerHTML = `Date Is: ${data.date}`;            
+            contentEl.innerHTML = `My Feelings Is: ${data.feeling}`;           
             tempEl.innerHTML = `Temp Is: ${data.temp}`;
-            contentEl.innerHTML = `My Feelings Is: ${data.feeling}`;
+            
         }).catch((error) => console.error('Some Error Has Been caught => ', error));
     } catch (error) {
         console.error('error', error);
