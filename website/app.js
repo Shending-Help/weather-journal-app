@@ -3,7 +3,7 @@
 /* Global Variables */
 const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = '&appid=5eff5063dfc1d10eb8fd453b13548c61&units=imperial' ;
-const apiUrl = "http://localhost:3000/";
+const apiUrl = 'http://localhost:3000/';
 // variables for elements to be used
 const dateEl = document.getElementById('date');
 const tempEl = document.getElementById('temp');
@@ -17,10 +17,10 @@ const contentEl = document.getElementById('content');
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-
+// performsaction when clicking the generate element
 document.getElementById('generate').addEventListener('click', performAction);
 
-
+// POST route that validates the response then updates the ui
 async function postData(url = '', data = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -41,9 +41,10 @@ async function postData(url = '', data = {}) {
             return;
         }
        
-        response.json().then(data => {
+        res.json().then(data => {
             if (response.ok)
-              updateUI();//Update UI Now
+                // updates the ui
+                updateUI();
             else
                 alert('something went wrong');
         }).catch((error) => console.error('Some Error Has Been caught => ', error));
@@ -53,7 +54,8 @@ async function postData(url = '', data = {}) {
     }
   }
 
-
+// happens when generate is clicked it stores the two input values in two constsants 
+// and calls the getWeatherData if resolved it posts the data to the server 
 function performAction(){
 
     const zipCode =  zipCodeEl.value;
@@ -61,14 +63,15 @@ function performAction(){
 
     getWeatherData(zipCode)
     .then( dataFromApi => {
-
-        let date = new Date(dataFromApi.dt * 1000);
-        let date_str = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
-        postData('http://localhost:3000/postData', {temp: dataFromApi.main.temp, date: date_str, feeling: feelings});
+        // getting the current date 
+        let d = new Date(dataFromApi.dt * 1000);
+        let d_str = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+        postData('http://localhost:3000/postData', {temp: dataFromApi.main.temp, date: d_str, feeling: feelings});
         
     })
 }
 
+// this functions gets the data from the api and also validates them printing an the error on the go 
 const getWeatherData = async (zipCode) => {
     const response  = await fetch(baseUrl + zipCode + apiKey );
     
@@ -81,10 +84,11 @@ const getWeatherData = async (zipCode) => {
     };
 };
 
+// this function updates the most recent entry element
 async function updateUI() {
-    let response = await fetch(`${apiUrl}getAll`);
+    let res = await fetch(`${apiUrl}getAll`);
     try {
-        response.json().then(data => {
+        res.json().then(data => {
             dateEl.innerHTML = `Date Is: ${data.date}`;
             tempEl.innerHTML = `Temp Is: ${data.temp}`;
             contentEl.innerHTML = `My Feelings Is: ${data.feeling}`;
