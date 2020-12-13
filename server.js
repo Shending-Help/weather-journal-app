@@ -33,18 +33,16 @@ function listening(){
 }
 
 app.get('/getAll', (req, res) => {
-    res.send(projectData).status(200).end();
+    res.send(projectData);
 })
-app.post('/postData', addWeather );
-
-function addWeather (req){
-    let data = req.body
-    
-    projectData.push({
-        temp : data.temp ,
-        date : data.date , 
-        feeling : data.feeling
-
-    });
+app.post('/postData', (req, res) => {
+    //Post Data 
+    projectData={
+        temp:req.body.temp,
+        date:req.body.date,
+        feeling:req.body.feeling
+    };
     res.send(projectData).status(404).end();
-}
+});
+
+
