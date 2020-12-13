@@ -41,13 +41,15 @@ async function postData(url = '', data = {}) {
             return;
         }
        
-        res.json().then(data => {
+        res.json()
+        .then(data => {
             if (res.ok)
                 // updates the ui
                 updateUI();
             else
                 alert('something went wrong');
-        }).catch((error) => console.error('Some Error Has Been caught => ', error));
+        })
+        .catch((error) => console.error('Some Error Has Been caught => ', error));
 
     } catch (error) {
         console.error('err is ',error);
@@ -79,8 +81,9 @@ const getWeatherData = async (zipCode) => {
         const data = await response.json();
         console.log(data)
         return data;
-    } catch(error) {
-        console.error('error', error);
+    } 
+    catch(err) {
+        console.error('error', err);
     };
 };
 
@@ -88,13 +91,16 @@ const getWeatherData = async (zipCode) => {
 async function updateUI() {
     let res = await fetch(`${apiUrl}getAll`);
     try {
-        res.json().then(data => {
+        res.json()
+        .then(data => {
             dateEl.innerHTML = `Date Is: ${data.date}`;            
             contentEl.innerHTML = `My Feelings Is: ${data.feeling}`;           
             tempEl.innerHTML = `Temp Is: ${data.temp}`;
             
-        }).catch((error) => console.error('Some Error Has Been caught => ', error));
-    } catch (error) {
+        })
+        .catch((error) => console.error('Some Error Has Been caught => ', error));
+    } 
+    catch (error) {
         console.error('error', error);
     }
 }
