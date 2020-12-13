@@ -57,7 +57,7 @@ async function postData(url = '', data = {}) {
     try {
         
         response.json(); // parses JSON response into native JavaScript objects
-        // makeChangesVisible();
+        makeChangesVisible();
     }
     catch(err){
         
@@ -66,3 +66,16 @@ async function postData(url = '', data = {}) {
 }
 
 /* Function to GET Project Data */
+const makeChangesVisible = async () => {
+    const request = await fetch('/getData');
+    try{
+      const allData = await request.json();
+      
+      document.getElementById('temp').innerHTML = allData.temp;
+      document.getElementById('date').innerHTML = allData.date;
+      document.getElementById('content').innerHTML = allData.feeling;
+  
+    }catch(error){
+      console.error("error", error);
+    }
+}
