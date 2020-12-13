@@ -38,10 +38,11 @@ app.get('/getData', (req, res) => {
 app.post('/postData', (req, res) => {
     //Post Data 
     projectData={
-        temp:req.body.temp,
-        date:req.body.date,
-        feeling:req.body.feeling
+        temp : req.body.temp,
+        date : req.body.date,
+        feeling : req.body.feeling
     };
+    console.log(req.body);
     res.send(projectData);
 });
 
