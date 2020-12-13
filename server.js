@@ -32,7 +32,7 @@ function listening(){
     console.log(`running on localhost: ${port}`);
 }
 
-app.get('/getAll', (req, res) => {
+app.get('/getData', (req, res) => {
     res.send(projectData);
 })
 app.post('/postData', (req, res) => {
@@ -42,7 +42,7 @@ app.post('/postData', (req, res) => {
         date:req.body.date,
         feeling:req.body.feeling
     };
-    res.send(projectData).status(404).end();
+    res.send(projectData);
 });
 
 
