@@ -49,10 +49,10 @@ async function postData(url = '', data = {}) {
             else
                 alert('something went wrong');
         })
-        .catch((error) => console.error('Some Error Has Been caught => ', error));
+        .catch((err) => console.error('an error was found ', err));
 
-    } catch (error) {
-        console.error('err is ',error);
+    } catch (err) {
+        console.error('err is ',err);
     }
   }
 
@@ -98,9 +98,9 @@ async function updateUI() {
             tempEl.innerHTML = `Temp Is: ${data.temp}`;
             
         })
-        .catch((error) => console.error('Some Error Has Been caught => ', error));
+        .catch((err) => console.error('an error was found', err));
     } 
-    catch (error) {
-        console.error('error', error);
+    catch (err) {
+        console.error('error', err);
     }
 }
